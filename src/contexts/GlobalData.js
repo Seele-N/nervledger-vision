@@ -314,7 +314,7 @@ const getGlobalTransactions = async () => {
     transactions.burns = []
     result?.data?.snpPoolTransations &&
       result.data.snpPoolTransations.map(transaction => {
-        if (transaction.operator == 0) {
+        if (transaction.operator === 0) {
           transactions.mints.push(transaction)
         }
         if (transaction.operator > 0) {
