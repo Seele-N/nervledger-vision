@@ -110,6 +110,10 @@ function AccountPage({ account }) {
             }}
           >
             <AutoRow gap="20px">
+            <AutoColumn gap="8px">
+                <TYPE.header fontSize={24}>{totalAdd ? getDisplayBalance(totalAdd-totalRemove) : '-'}</TYPE.header>
+                <TYPE.main>Now Staked</TYPE.main>
+              </AutoColumn>
               <AutoColumn gap="8px">
                 <TYPE.header fontSize={24}>{totalAdd ? getDisplayBalance(totalAdd, 18) : '-'}</TYPE.header>
                 <TYPE.main>Total Add</TYPE.main>
@@ -120,10 +124,7 @@ function AccountPage({ account }) {
                 </TYPE.header>
                 <TYPE.main>Total Remove</TYPE.main>
               </AutoColumn>
-              <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>{transactionCount ? transactionCount : '-'}</TYPE.header>
-                <TYPE.main>Total Transactions</TYPE.main>
-              </AutoColumn>
+              
             </AutoRow>
           </Panel>
         </DashboardWrapper>
