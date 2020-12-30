@@ -1,5 +1,6 @@
 import { Farm } from "./types";
 import seelenicon from "../assets/seelen.png";
+import susdticon from "../assets/susdt.png";
 
 export const OneDay = 86400;
 export const stakePools: Farm[] = [
@@ -12,6 +13,7 @@ export const stakePools: Farm[] = [
     lockPeriod: OneDay * 14,
     unlockPeriod: OneDay * 2,
     allocPoint: 1,
+    decimals: 18,
   },
   {
     pid: 1,
@@ -22,6 +24,7 @@ export const stakePools: Farm[] = [
     lockPeriod: OneDay * 30,
     unlockPeriod: OneDay * 4,
     allocPoint: 1.5,
+    decimals: 18,
   },
   {
     pid: 2,
@@ -32,6 +35,7 @@ export const stakePools: Farm[] = [
     lockPeriod: OneDay * 90,
     unlockPeriod: OneDay * 7,
     allocPoint: 2.5,
+    decimals: 18,
   },
   {
     pid: 3,
@@ -42,6 +46,7 @@ export const stakePools: Farm[] = [
     lockPeriod: OneDay * 180,
     unlockPeriod: OneDay * 10,
     allocPoint: 4,
+    decimals: 18,
   },
   {
     pid: 4,
@@ -52,6 +57,18 @@ export const stakePools: Farm[] = [
     lockPeriod: OneDay * 365,
     unlockPeriod: OneDay * 14,
     allocPoint: 8,
+    decimals: 18,
+  },
+  {
+    pid: 5,
+    symbol: "sUSDT",
+    name: "sUSDT",
+    id: "5",
+    icon: susdticon,
+    decimals: 6,
+    lockPeriod: 20,
+    unlockPeriod: 0,
+    allocPoint: 100,
   },
 ];
 
@@ -62,4 +79,9 @@ export const getFarm = (id: string): Farm => {
 
 export const getFarms = (): Farm[] => {
   return stakePools;
+};
+
+export const getFarmDecimals = (id: string): Number => {
+  const farm = stakePools.find((farm) => farm.id === id);
+  return farm.decimals;
 };

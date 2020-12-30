@@ -18,8 +18,8 @@ export const SUBGRAPH_HEALTH = gql`
   }
 `
 
-export const SNP_PAIR_DATA  = (pairAddress) => {
-  const queryString =`
+export const SNP_PAIR_DATA = (pairAddress) => {
+  const queryString = `
   query pairs {
       pairs(where: {id: "${pairAddress}"}){
           id
@@ -215,10 +215,10 @@ export const USER_POSITIONS = gql`
   }
 `
 
-
+// where: { poolid_lt: 5},
 export const USER_TRANSACTIONS = gql`
   query transactions($user: Bytes!) {
-    snpPoolTransations(orderBy: timestamp, orderDirection: desc, where: { address: $user }) {
+    snpPoolTransations(orderBy: timestamp, orderDirection: desc, where: { address: $user,poolid_lt: 5 }) {
       id
       timestamp
       address
@@ -281,7 +281,7 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
 
 export const GLOBAL_CHART = gql`
   query snpDayDatas($startTime: Int!, $skip: Int!) {
-    snpPoolDayDatas(first: 1000, skip: $skip, where: { date_gt: $startTime}, orderBy: date, orderDirection: asc) {
+    snpPoolDayDatas(first: 1000, skip: $skip, where: { date_gt: $startTime ,poolid_lt: 5}, orderBy: date, orderDirection: asc) {
       id
       date
       poolid
@@ -335,7 +335,7 @@ export const GLOBAL_TXNS = gql`
 
 export const TOP_STAKES = gql`
   query topstakes {
-    snpMasterPoolUsers(first: 100, orderBy:  balance, orderDirection: desc) {
+    snpMasterPoolUsers(where: { poolid_lt: 5},first: 100, orderBy:  balance, orderDirection: desc) {
       address
       poolid
       balance

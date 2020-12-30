@@ -7,4 +7,5 @@ export interface Farm {
   lockPeriod: number;
   unlockPeriod: number;
   allocPoint: number;
+  decimals: number;
 }

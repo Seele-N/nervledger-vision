@@ -11,7 +11,7 @@ import { getFarm } from '../../constants/farm'
 import { CustomLink } from '../Link'
 import { Divider } from '..'
 import { withRouter } from 'react-router-dom'
-import { formattedNum,getDisplayBalance } from '../../utils'
+import { formattedNum, getDisplayBalance } from '../../utils'
 import { TYPE } from '../../Theme'
 import DoubleTokenLogo from '../DoubleLogo'
 import { RowFixed } from '../Row'
@@ -109,7 +109,7 @@ function PoolList({ pools, disbaleLinks, maxItems = 10 }) {
       <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
         {!below600 && (
           <DataText area="number" fontWeight="500" justifyContent="center">
-            {index-1}
+            {index - 1}
           </DataText>
         )}
         <DataText area="name" fontWeight="500" justifyContent="flex-start">
@@ -119,16 +119,16 @@ function PoolList({ pools, disbaleLinks, maxItems = 10 }) {
           </CustomLink>
         </DataText>
 
-        
-        <DataText area="amount">{getDisplayBalance(pool.balance, 18)}</DataText>
-        <DataText area="allocPoint">{formattedNum(pool.allocPoint*0.01, false)}</DataText>
+
+        <DataText area="amount">{getDisplayBalance(pool.balance, farm.decimals)}</DataText>
+        <DataText area="allocPoint">{formattedNum(pool.allocPoint * 0.01, false)}</DataText>
       </DashGrid>
     )
   }
 
   const lpList =
-  pools &&
-  pools.slice(ITEMS_PER_PAGE * (page - 1), page * ITEMS_PER_PAGE).map((pool, index) => {
+    pools &&
+    pools.slice(ITEMS_PER_PAGE * (page - 1), page * ITEMS_PER_PAGE).map((pool, index) => {
       return (
         <div key={index}>
           <ListItem key={index} index={(page - 1) * 10 + index + 1} pool={pool} />
@@ -159,7 +159,7 @@ function PoolList({ pools, disbaleLinks, maxItems = 10 }) {
         <Flex alignItems="center" justifyContent="flexEnd">
           <TYPE.main area="allocPoint">Alloc Point</TYPE.main>
         </Flex>
-        
+
       </DashGrid>
       <Divider />
       <List p={0}>{!lpList ? <LocalLoader /> : lpList}</List>

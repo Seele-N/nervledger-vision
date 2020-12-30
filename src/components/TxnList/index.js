@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
-import { formatTime, formattedNum, urls,getDisplayBalance } from '../../utils'
+import { formatTime, formattedNum, urls, getDisplayBalance } from '../../utils'
 import { useMedia } from 'react-use'
 import { useCurrentCurrency } from '../../contexts/Application'
 import { RowFixed, RowBetween } from '../Row'
@@ -150,9 +150,9 @@ function getTransactionType(event, symbol0, symbol1) {
   const farm = getFarm(symbol0)
   switch (event) {
     case TXN_TYPE.ADD:
-      return 'Add ' + farm.name + ' pool ' 
+      return 'Add ' + farm.name + ' pool '
     case TXN_TYPE.REMOVE:
-      return 'Remove ' + farm.name + ' pool ' 
+      return 'Remove ' + farm.name + ' pool '
     default:
       return ''
   }
@@ -249,7 +249,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   const below780 = useMedia('(max-width: 780px)')
 
   const ListItem = ({ item }) => {
-
+    const farm = getFarm(item.token0Symbol)
     return (
       <DashGrid style={{ height: '48px' }}>
         <DataText area="txn" fontWeight="500">
@@ -258,13 +258,13 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           </Link>
         </DataText>
         <DataText area="Amount">
-          {getDisplayBalance(item.amountUSD, 18)}
+          {getDisplayBalance(item.amountUSD, farm.decimals)}
         </DataText>
-        
+
         {!below1080 && (
           <DataText area="account">
             <Link color={color} external href={'https://etherscan.io/address/' + item.account}>
-            {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
+              {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
             </Link>
           </DataText>
         )}
@@ -281,34 +281,34 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={color} />
           </RowBetween>
         ) : (
-          <RowFixed area="txn" gap="10px" pl={4}>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.ALL)
-              }}
-              active={txFilter === TXN_TYPE.ALL}
-            >
-              All
+            <RowFixed area="txn" gap="10px" pl={4}>
+              <SortText
+                onClick={() => {
+                  setTxFilter(TXN_TYPE.ALL)
+                }}
+                active={txFilter === TXN_TYPE.ALL}
+              >
+                All
             </SortText>
-            
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.ADD)
-              }}
-              active={txFilter === TXN_TYPE.ADD}
-            >
-              Adds
+
+              <SortText
+                onClick={() => {
+                  setTxFilter(TXN_TYPE.ADD)
+                }}
+                active={txFilter === TXN_TYPE.ADD}
+              >
+                Adds
             </SortText>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.REMOVE)
-              }}
-              active={txFilter === TXN_TYPE.REMOVE}
-            >
-              Removes
+              <SortText
+                onClick={() => {
+                  setTxFilter(TXN_TYPE.REMOVE)
+                }}
+                active={txFilter === TXN_TYPE.REMOVE}
+              >
+                Removes
             </SortText>
-          </RowFixed>
-        )}
+            </RowFixed>
+          )}
 
         <Flex alignItems="center" justifyContent="flexStart">
           <ClickableText
@@ -322,9 +322,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             Total Value {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
           </ClickableText>
         </Flex>
-        
+
         <>
-          
+
           {!below1080 && (
             <Flex alignItems="center">
               <TYPE.body area="account">Account</TYPE.body>
@@ -351,15 +351,15 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         ) : filteredList.length === 0 ? (
           <EmptyCard>No recent transactions found.</EmptyCard>
         ) : (
-          filteredList.map((item, index) => {
-            return (
-              <div key={index}>
-                <ListItem key={index} index={index + 1} item={item} />
-                <Divider />
-              </div>
-            )
-          })
-        )}
+              filteredList.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <ListItem key={index} index={index + 1} item={item} />
+                    <Divider />
+                  </div>
+                )
+              })
+            )}
       </List>
       <PageButtons>
         <div
