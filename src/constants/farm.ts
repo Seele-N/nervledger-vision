@@ -1,6 +1,7 @@
 import { Farm } from "./types";
 import seelenicon from "../assets/seelen.png";
 import susdticon from "../assets/susdt.png";
+import snpicon from "../assets/snp.png";
 
 export const OneDay = 86400;
 export const stakePools: Farm[] = [
@@ -69,6 +70,17 @@ export const stakePools: Farm[] = [
     lockPeriod: 20,
     unlockPeriod: 0,
     allocPoint: 100,
+  },
+  {
+    pid: 6,
+    symbol: "SNP",
+    name: "SNP(1 and half year)",
+    id: "6",
+    icon: snpicon,
+    decimals: 18,
+    lockPeriod: OneDay * (365+180),
+    unlockPeriod: OneDay * 15,
+    allocPoint: 250000,
   },
 ];
 
